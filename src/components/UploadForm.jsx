@@ -1,8 +1,11 @@
 // src/components/UploadForm.js
 import React, { useState } from "react";
 import "./UploadForm.css";
+ import {useDispatch} from 'react-redux'
+ import { addPhoto } from "../featurs/uploadSlice";
 
-const UploadForm = ({ onUpload }) => {
+const UploadForm = () => {
+  const dispatch=useDispatch()
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
@@ -10,7 +13,14 @@ const UploadForm = ({ onUpload }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (file) {
-      onUpload({ title, description, file });
+      const newPhoto = {
+        id: Date.now(),
+        title:title,
+        description: description,
+        url: URL.createObjectURL(file)
+      };
+      dispatch(addPhoto(newPhoto));
+      
     }
      setText('Photo Upload')
     setTimeout(()=>{

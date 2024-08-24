@@ -2,7 +2,9 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './photoDetailsPage.css'
-const PhotoDetailsPage = ({ photos }) => {
+import { useSelector } from 'react-redux';
+const PhotoDetailsPage = () => {
+  const photos = useSelector((state)=> state.uploadPhoto.photos)
   const { id } = useParams();
   const photo = photos.find((p) => p.id === parseInt(id));
 
